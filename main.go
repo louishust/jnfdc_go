@@ -2,10 +2,13 @@ package main
 
 import (
 	_ "jnfdc/routers"
+	"jnfdc/tasks"
+	_ "jnfdc/utils"
+
 	"github.com/astaxie/beego"
 )
 
 func main() {
-	beego.Run()
+	go tasks.CrawlJnfdc()
+	beego.Run("127.0.0.1:8888")
 }
-
