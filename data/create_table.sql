@@ -7,4 +7,3 @@ CREATE TABLE `jn_net_sign` (
   `created` timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='济南网签表';
-alter table 
