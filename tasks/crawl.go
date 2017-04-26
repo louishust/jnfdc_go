@@ -13,7 +13,7 @@ import (
 )
 
 func fetchJnfdc() error {
-	http.DefaultClient.Timeout = 20 * time.Second
+	http.DefaultClient.Timeout = 30 * time.Second
 	doc, err := goquery.NewDocument("http://www.jnfdc.gov.cn")
 	if err != nil {
 		logs.Error(err)
