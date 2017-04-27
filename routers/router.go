@@ -1,10 +1,10 @@
 package routers
 
 import (
-	"jnfdc/controllers"
 	"github.com/astaxie/beego"
+	"jnfdc/controllers"
 )
 
 func init() {
-    beego.Router("/", &controllers.MainController{})
+	beego.Router("/wx", &controllers.MainController{})
 }
