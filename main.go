@@ -10,6 +10,7 @@ import (
 
 func main() {
 	go tasks.CrawlJnfdc()
+	go tasks.CrawlQDfdc()
 
 	utils.InitMenuBar()
 	beego.Run()
