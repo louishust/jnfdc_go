@@ -45,9 +45,56 @@ func fetchJnfdc() error {
 	return nil
 }
 
+func fetchJnfdcRegion() error {
+	http.DefaultClient.Timeout = 30 * time.Second
+	doc, err := goquery.NewDocument("http://www.jnfdc.gov.cn/saletoday/index.shtml")
+	if err != nil {
+		logs.Error(err)
+		return err
+	}
+
+	o := orm.NewOrm()
+	// Find the review items
+	project_table := doc.Find(".project_table")
+	last_idx := len(project_table.Nodes) - 1
+	logs.Debug("Last idx = %d", last_idx)
+	doc.Find(".project_table").Each(func(i int, s *goquery.Selection) {
+		if i == last_idx {
+			s.Find("tbody").Find("tr").Each(func(i int, s *goquery.Selection) {
+				if i != 0 {
+					var data models.JNNetSignRegion
+					s.Find("td").Each(func(i int, s *goquery.Selection) {
+						switch i {
+						case 0:
+							data.RegionId, _ = strconv.ParseUint(s.Text(), 10, 64)
+						case 1:
+							data.RegionName = s.Text()
+						case 2:
+							data.OnsaleNum, _ = strconv.ParseUint(s.Text(), 10, 64)
+						case 3:
+							data.HouseOnsaleNum, _ = strconv.ParseUint(s.Text(), 10, 64)
+						case 4:
+							data.SignNum, _ = strconv.ParseUint(s.Text(), 10, 64)
+						case 5:
+							data.SignArea, _ = strconv.ParseFloat(s.Text(), 32)
+						}
+					})
+					_, err := o.Insert(&data)
+					if err != nil {
+						logs.Error(err)
+					}
+				}
+			})
+		}
+	})
+
+	return nil
+}
+
 func CrawlJnfdc() {
 	for {
 		fetchJnfdc()
+		fetchJnfdcRegion()
 		time.Sleep(5 * time.Minute)
 	}
 }
