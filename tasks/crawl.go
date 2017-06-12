@@ -13,7 +13,7 @@ import (
 )
 
 func fetchJnfdc() error {
-	http.DefaultClient.Timeout = 30 * time.Second
+	http.DefaultClient.Timeout = 10 * time.Second
 	doc, err := goquery.NewDocument("http://www.jnfdc.gov.cn")
 	if err != nil {
 		logs.Error(err)
@@ -46,7 +46,7 @@ func fetchJnfdc() error {
 }
 
 func fetchJnfdcRegion() error {
-	http.DefaultClient.Timeout = 30 * time.Second
+	http.DefaultClient.Timeout = 10 * time.Second
 	doc, err := goquery.NewDocument("http://www.jnfdc.gov.cn/saletoday/index.shtml")
 	if err != nil {
 		logs.Error(err)
@@ -57,7 +57,6 @@ func fetchJnfdcRegion() error {
 	// Find the review items
 	project_table := doc.Find(".project_table")
 	last_idx := len(project_table.Nodes) - 1
-	logs.Debug("Last idx = %d", last_idx)
 	doc.Find(".project_table").Each(func(i int, s *goquery.Selection) {
 		if i == last_idx {
 			s.Find("tbody").Find("tr").Each(func(i int, s *goquery.Selection) {
@@ -95,6 +94,6 @@ func CrawlJnfdc() {
 	for {
 		fetchJnfdc()
 		fetchJnfdcRegion()
-		time.Sleep(5 * time.Minute)
+		time.Sleep(1 * time.Minute)
 	}
 }
