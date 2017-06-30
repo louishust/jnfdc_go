@@ -21,6 +21,8 @@ func fetchJnfdc() error {
 	}
 
 	o := orm.NewOrm()
+	o.Begin()
+	defer o.Commit()
 	// Find the review items
 	doc.Find("#todayview").Find(".col_bg").Find("ul").Each(func(i int, s *goquery.Selection) {
 		s.Find("ul").Each(func(i int, s *goquery.Selection) {
@@ -54,6 +56,8 @@ func fetchJnfdcRegion() error {
 	}
 
 	o := orm.NewOrm()
+	o.Begin()
+	defer o.Commit()
 	// Find the review items
 	project_table := doc.Find(".project_table")
 	last_idx := len(project_table.Nodes) - 1

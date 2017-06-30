@@ -21,6 +21,7 @@ func FetchQDfdcFirst() error {
 	}
 
 	o := orm.NewOrm()
+	defer o.Commit()
 	// Find the review items
 	doc.Find(".ysjrcj_table").Each(func(i int, s *goquery.Selection) {
 		if i >= 2 && i <= 16 {
@@ -96,6 +97,7 @@ func FetchQDfdcSecond() error {
 	}
 
 	o := orm.NewOrm()
+	defer o.Commit()
 	// Find the review items
 	doc.Find(".jrcj_table4").Each(func(i int, s *goquery.Selection) {
 		s.Find("tr").Each(func(i int, s *goquery.Selection) {

@@ -3,7 +3,6 @@ package main
 import (
 	_ "jnfdc/routers"
 	"jnfdc/tasks"
-	"jnfdc/utils"
 
 	"github.com/astaxie/beego"
 )
@@ -11,7 +10,12 @@ import (
 func main() {
 	go tasks.CrawlJnfdc()
 	go tasks.CrawlQDfdc()
+	go tasks.JnfdcStat()
 
-	utils.InitMenuBar()
+	if beego.BConfig.RunMode == "dev" {
+		beego.BConfig.WebConfig.DirectoryIndex = true
+		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
+	}
+
 	beego.Run()
 }
