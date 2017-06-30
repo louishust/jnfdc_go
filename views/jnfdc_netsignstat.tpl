@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1">
-    <title>ECharts</title>
+    <title>济南房产</title>
     <!-- 引入 echarts.js -->
     <script src="/static/js/echarts.min.js"></script>
     <script src="/static/js/jquery.min.js"></script>
