@@ -18,6 +18,9 @@
         var dimension = {{.YName}}
         var mydata = {{.YData}}
 
+        var s = "住宅"
+        console.log(s)
+
         var style = {
                    normal: {
                      label : {
@@ -64,7 +67,9 @@
             legend: {
                 x: 'right',
                 orient:'vertical',
-                data: {{.YName}}
+                data: {{.YName}},
+                selected : {
+                }
             },
             grid: {
                 left: '3%',
@@ -73,11 +78,7 @@
                 containLabel: true
             },
             xAxis: [{
-               boundaryGap : false,
-               data:{{.X}},
-               splitLine: {
-                   show: false
-               }
+               data:{{.X}}
             }],
             yAxis: {
                 type: 'value'
@@ -86,6 +87,7 @@
                 name: dimension[0],
                 type: 'line',
                 stack: '总量',
+                smooth: true,
                 label: {
                     normal: {
                         show: true,
@@ -95,73 +97,65 @@
                 data: mydata[0],
                 areaStyle: {normal: {}},
                 xAxisIndex: 0,
-                showSymbol: false,
-                hoverAnimation: false,
-                itemStyle: style
             },  {
                 name: dimension[1],
                 type: 'line',
+                smooth: true,
                 stack: '总量',
                 data: mydata[1],
                 areaStyle: {normal: {}},
                 xAxisIndex: 0,
-                showSymbol: false,
-                hoverAnimation: false,
                 itemStyle: style
             },  {
                 name: dimension[2],
                 type: 'line',
                 stack: '总量',
+                smooth: true,
                 data: mydata[2],
                 areaStyle: {normal: {}},
                 xAxisIndex: 0,
-                showSymbol: false,
-                hoverAnimation: false,
                 itemStyle: style
             },  {
                 name: dimension[3],
                 type: 'line',
                 stack: '总量',
+                smooth: true,
                 data: mydata[3],
                 areaStyle: {normal: {}},
                 xAxisIndex: 0,
-                showSymbol: false,
-                hoverAnimation: false,
                 itemStyle: style
             },  {
                 name: dimension[4],
                 type: 'line',
                 stack: '总量',
+                smooth: true,
                 data: mydata[4],
                 areaStyle: {normal: {}},
                 xAxisIndex: 0,
-                showSymbol: false,
-                hoverAnimation: false,
                 itemStyle: style
             },  {
                 name: dimension[5],
                 type: 'line',
                 stack: '总量',
+                smooth: true,
                 data: mydata[5],
                 areaStyle: {normal: {}},
                 xAxisIndex: 0,
-                showSymbol: false,
-                hoverAnimation: false,
                 itemStyle: style
             },  {
                 name: dimension[6],
                 type: 'line',
                 stack: '总量',
+                smooth: true,
                 data: mydata[6],
                 areaStyle: {normal: {}},
                 xAxisIndex: 0,
-                showSymbol: false,
-                hoverAnimation: false,
                 itemStyle: style
             },  {
                 name: dimension[7],
                 type: 'line',
                 stack: '总量',
+                smooth: true,
                 data: mydata[7],
                 areaStyle: {normal: {}},
                 xAxisIndex: 0,
@@ -170,6 +164,14 @@
                 itemStyle: style
             }]
         };
+
+        option["legend"]["selected"][dimension[1]] = false;
+        option["legend"]["selected"][dimension[2]] = false;
+        option["legend"]["selected"][dimension[3]] = false;
+        option["legend"]["selected"][dimension[4]] = false;
+        option["legend"]["selected"][dimension[5]] = false;
+        option["legend"]["selected"][dimension[6]] = false;
+        option["legend"]["selected"][dimension[7]] = false;
 
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
